@@ -20,10 +20,14 @@ npm run dev
 # Run
 - Open two apps, e.g. run `npm run dev` in two terminals
 - On the first app, 
-  - click Start writer
+  - click Start base (name = 'owner', key = '')
   - wait for core created with a core key
 - On the second app
-  - copy the above core key into the reader input box
-  - click Start reader
-  - wait for started
-- Go back to first app, send a message, the second app will receive it
+  - copy the above core key into the key input box
+  - type name as 'member-1'
+  - click Start base
+  - wait for core created with a core key
+- Go back to first app
+  - copy the core key of the second app to the writer input box
+  - click add
+- Now from any app, send message, sync

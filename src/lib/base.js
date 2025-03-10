@@ -25,13 +25,11 @@ export async function createBase ({ name = 'owner', ownerKey } = {}) {
     valueEncoding: 'json',
     apply: async (nodes, view, base) => {
       for (const { value } of nodes) {
-        console.log('🚀 ~ apply: ~ value:', value)
         if (value.add) {
           const key = b4a.from(value.add, 'hex')
           await base.addWriter(key, { indexer: value.indexer })
           continue
         }
-
         if (view) await view.append(value)
       }
     },

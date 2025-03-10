@@ -14,7 +14,7 @@ updates(() => reload())
 const swarm = new Hyperswarm()
 teardown(() => swarm.destroy())
 
-export async function createBase ({ name = 'owner', ownerKey } = {}) {
+export async function createBase ({ name, ownerKey } = {}) {
   console.log('starting base', name)
   const store = new Corestore(path.join(Pear.config.storage, name))
   teardown(() => store.close())

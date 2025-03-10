@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import b4a from 'b4a'
 
 import { createBase } from '../lib/base'
@@ -17,6 +17,15 @@ export default function App () {
   const startBase = async () => {
     const res = await createBase({ name: inputName, ownerKey: inputKey || undefined })
     setBase(res.base)
+  }
+
+  const sync = async () => {
+    await base.update()
+    const data = []
+    for (let i = 0; i < base.view.length; i++) {
+      data.push(await base.view.get(i))
+    }
+    setMessages(data)
   }
 
   return (
@@ -58,17 +67,8 @@ export default function App () {
       <div>
         <textarea type='text' value={message} onChange={(evt) => setMessage(evt.currentTarget.value)} />
       </div>
-      <button onClick={() => base.append(message)}>Send</button>
-      <button onClick={() => base.update().then(async () => {
-        console.log('updated', base.view.length)
-        const data = []
-        for (let i = 0; i < base.view.length; i++) {
-          data.push(await base.view.get(i))
-        }
-        setMessages(data)
-      })}
-      >Sync
-      </button>
+      <button onClick={() => base.append(message).then(sync)}>Send</button>
+      <button onClick={() => sync()}>Sync</button>
 
       <h3>Receive message</h3>
       {messages.map((msg, idx) => (

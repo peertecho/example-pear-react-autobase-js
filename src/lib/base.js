@@ -39,7 +39,7 @@ export async function createBase ({ name, ownerKey } = {}) {
   await base.ready()
 
   swarm.join(base.discoveryKey)
-  swarm.flush()
+  await swarm.flush()
 
   await base.update()
 
